@@ -141,20 +141,19 @@ export const Dashboard: React.FC<Props> = ({ onNewInterview, onEditInterview, to
 
   return (
     <div className="max-w-6xl mx-auto p-8">
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between mb-8 gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 tracking-tight">Interview Dashboard</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">Beheer formulieren en exporteer data naar Excel.</p>
+      <div className="mb-12 flex flex-col items-center relative">
+        <div className="w-full flex justify-between items-center absolute top-0 left-0">
+           <button onClick={toggleTheme} className="p-2 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+             {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+           </button>
         </div>
         
-        <div className="flex flex-wrap items-center gap-3">
-          <button onClick={toggleTheme} className="p-2 border border-gray-200 dark:border-gray-700 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-             {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-          
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 tracking-tight text-center mt-2 mb-6">Onderzoek excie-instrumentarium</h1>
+        
+        <div className="flex flex-wrap items-center justify-center gap-3 mb-8 bg-white dark:bg-gray-800 p-2 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
           <label className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 font-medium rounded-lg transition-colors border border-blue-200 dark:border-blue-800 shadow-sm cursor-pointer">
             <FileDown size={18} />
-            Importeer Excel
+            Excel-import
             <input type="file" accept=".xlsx, .xls" className="hidden" onChange={handleImport} />
           </label>
 
@@ -164,7 +163,7 @@ export const Dashboard: React.FC<Props> = ({ onNewInterview, onEditInterview, to
             className="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-100 dark:hover:bg-green-900/50 disabled:opacity-50 disabled:cursor-not-allowed font-medium rounded-lg transition-colors border border-green-200 dark:border-green-800 shadow-sm"
           >
             <FileUp size={18} />
-            {selectedIds.size > 0 ? `Exporteer Geselecteerde (${selectedIds.size})` : 'Exporteer Alle Data'}
+            {selectedIds.size > 0 ? `Excel-export (${selectedIds.size})` : 'Excel-export'}
           </button>
           
           <button 
@@ -173,28 +172,28 @@ export const Dashboard: React.FC<Props> = ({ onNewInterview, onEditInterview, to
             className="flex items-center gap-2 px-4 py-2 bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/50 disabled:opacity-50 disabled:cursor-not-allowed font-medium rounded-lg transition-colors border border-purple-200 dark:border-purple-800 shadow-sm"
           >
             <Printer size={18} />
-            {selectedIds.size > 0 ? `Print Geselecteerde (${selectedIds.size})` : 'Print Alle Data'}
-          </button>
-          
-          <button 
-            onClick={onNewInterview}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 font-medium rounded-lg transition-colors shadow-sm"
-          >
-            <Plus size={18} />
-            Nieuw Interview
+            {selectedIds.size > 0 ? `PDF-export (${selectedIds.size})` : 'PDF-export'}
           </button>
         </div>
+
+        <button 
+          onClick={onNewInterview}
+          className="flex items-center gap-2 px-6 py-3 bg-blue-600 dark:bg-blue-500 text-white hover:bg-blue-700 dark:hover:bg-blue-600 font-medium rounded-xl transition-colors shadow-sm text-lg"
+        >
+          <Plus size={20} />
+          Nieuw onderzoek
+        </button>
       </div>
 
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
         {interviews.length === 0 ? (
           <div className="p-12 text-center text-gray-500 dark:text-gray-400">
-            <p className="mb-4 text-lg">Nog geen interviews ingevuld.</p>
+            <p className="mb-4 text-lg">Nog geen onderzoeken ingevuld.</p>
             <button 
               onClick={onNewInterview}
               className="text-blue-600 dark:text-blue-400 font-medium hover:underline"
             >
-              Start uw eerste interview &rarr;
+              Start uw eerste onderzoek &rarr;
             </button>
           </div>
         ) : (

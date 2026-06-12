@@ -186,12 +186,12 @@ export const InterviewForm: React.FC<Props> = ({ initialData, onBack, toggleThem
           <ul className="space-y-1">
             <li>
               <button onClick={() => exportToExcel([data])} className="w-full text-left px-3 py-2 text-sm text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 rounded-md transition-colors flex items-center gap-2 font-medium">
-                <FileUp size={16} /> Exporteer Huidige (Excel)
+                <FileUp size={16} /> Excel-export
               </button>
             </li>
             <li>
               <button onClick={handlePrint} className="w-full text-left px-3 py-2 text-sm text-purple-700 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/30 rounded-md transition-colors flex items-center gap-2 font-medium block">
-                <Printer size={16} /> Print (.pdf) modus
+                <Printer size={16} /> PDF-export
               </button>
             </li>
           </ul>
@@ -206,7 +206,7 @@ export const InterviewForm: React.FC<Props> = ({ initialData, onBack, toggleThem
         
         {/* Validation / Form Title Context */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">Interview Invullen</h1>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">Inventarisatie van borgingsmethodiek</h1>
         </div>
 
         {/* ----- META SECTION ----- */}
@@ -372,6 +372,15 @@ export const InterviewForm: React.FC<Props> = ({ initialData, onBack, toggleThem
               </div>
             </div>
           </div>
+        </div>
+
+        <div className="flex justify-center mb-12">
+          <button 
+            onClick={onBack}
+            className="flex items-center gap-2 px-8 py-3 bg-green-600 dark:bg-green-500 hover:bg-green-700 dark:hover:bg-green-600 text-white font-medium rounded-xl transition-colors shadow-sm text-lg"
+          >
+            Klaar, terug naar Dashboard
+          </button>
         </div>
 
       </div>
