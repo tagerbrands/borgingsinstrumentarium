@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Dashboard } from './components/Dashboard';
 import { InterviewForm } from './components/InterviewForm';
+import { AnalysisView } from './components/AnalysisView';
 import { getInterviewById } from './store';
 import { InterviewData } from './types';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<'dashboard' | 'form'>('dashboard');
+  const [currentView, setCurrentView] = useState<'dashboard' | 'form' | 'analysis'>('dashboard');
   const [editingInterview, setEditingInterview] = useState<InterviewData | undefined>();
+  const [analysisIds, setAnalysisIds] = useState<string[]>([]);
   const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('theme') === 'dark');
 
   useEffect(() => {
@@ -34,6 +36,11 @@ export default function App() {
     }
   };
 
+  const handleAnalyze = (ids: string[]) => {
+    setAnalysisIds(ids);
+    setCurrentView('analysis');
+  };
+
   const handleBackToDashboard = () => {
     setCurrentView('dashboard');
     setEditingInterview(undefined);
@@ -45,13 +52,22 @@ export default function App() {
         <Dashboard 
           onNewInterview={handleNewInterview} 
           onEditInterview={handleEditInterview} 
+          onAnalyze={handleAnalyze}
+          toggleTheme={toggleTheme}
+          isDarkMode={isDarkMode}
+        />
+      ) : currentView === 'form' ? (
+        <InterviewForm 
+          initialData={editingInterview} 
+          onBack={handleBackToDashboard} 
           toggleTheme={toggleTheme}
           isDarkMode={isDarkMode}
         />
       ) : (
-        <InterviewForm 
-          initialData={editingInterview} 
-          onBack={handleBackToDashboard} 
+        <AnalysisView
+          ids={analysisIds}
+          onBack={handleBackToDashboard}
+          onOpenInterview={handleEditInterview}
           toggleTheme={toggleTheme}
           isDarkMode={isDarkMode}
         />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FileUp, Plus, Edit2, Trash2, AlertTriangle, Printer, FileDown, Moon, Sun } from 'lucide-react';
+import { FileUp, Plus, Edit2, Trash2, AlertTriangle, Printer, FileDown, Moon, Sun, BarChart2 } from 'lucide-react';
 import { InterviewData } from '../types';
 import { getInterviews, deleteInterview, saveInterview } from '../store';
 import { exportToExcel } from '../utils/export';
@@ -10,11 +10,12 @@ import { PrintView } from './PrintView';
 interface Props {
   onNewInterview: () => void;
   onEditInterview: (id: string) => void;
+  onAnalyze: (ids: string[]) => void;
   toggleTheme: () => void;
   isDarkMode: boolean;
 }
 
-export const Dashboard: React.FC<Props> = ({ onNewInterview, onEditInterview, toggleTheme, isDarkMode }) => {
+export const Dashboard: React.FC<Props> = ({ onNewInterview, onEditInterview, onAnalyze, toggleTheme, isDarkMode }) => {
   const [interviews, setInterviews] = useState<InterviewData[]>([]);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
@@ -173,6 +174,15 @@ export const Dashboard: React.FC<Props> = ({ onNewInterview, onEditInterview, to
           >
             <Printer size={18} />
             {selectedIds.size > 0 ? `PDF-export (${selectedIds.size})` : 'PDF-export'}
+          </button>
+          
+          <button 
+            onClick={() => onAnalyze(Array.from(selectedIds))}
+            disabled={selectedIds.size < 2}
+            className="flex items-center gap-2 px-4 py-2 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-100 dark:hover:bg-yellow-900/50 disabled:opacity-50 disabled:cursor-not-allowed font-medium rounded-lg transition-colors border border-yellow-200 dark:border-yellow-800 shadow-sm"
+          >
+            <BarChart2 size={18} />
+            Analyseer
           </button>
         </div>
 
